@@ -1,10 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Configuração do CORS
+app.use(cors({
+  origin: 'https://chatbot-qqms.onrender.com' // Substitua pela URL do seu frontend
+}));
 
 app.use(bodyParser.json());
 
@@ -19,7 +25,7 @@ app.post('/api/chat', async (req, res) => {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-4",
+        model: "gpt-4o",
         messages: [{ role: "user", content: prompt }],
         max_tokens: 150
       })
