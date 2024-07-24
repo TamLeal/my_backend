@@ -16,13 +16,13 @@ app.post('/api/chat', async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 150,
-      }),
+        model: "gpt-4",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 150
+      })
     });
 
     if (!response.ok) {
@@ -33,12 +33,7 @@ app.post('/api/chat', async (req, res) => {
     res.json(data);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI:', error);
-    res
-      .status(500)
-      .json({
-        error:
-          'An error occurred while processing your request. Please try again later.',
-      });
+    res.status(500).json({ error: 'An error occurred while processing your request. Please try again later.' });
   }
 });
 
